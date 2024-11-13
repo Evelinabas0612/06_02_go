@@ -11,7 +11,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+		with:
+		  node-version: 20.x
+		  cashe:'npm'
       - name: Build Binary
         run: make
       - name: Simple Test
