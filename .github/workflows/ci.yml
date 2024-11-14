@@ -12,22 +12,16 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-		with:
-		  node-version: 20.x
-		  cashe:'npm'
       - name: Build Binary
-        run: make
+        run: go build -o dummy-server.bin ./cmd
       - name: Simple Test
         run: |
           ./dummy-server.bin &
           sleep 3
-          curl -s -k https://localhost:8443
+          curl -v http://localhost:8888
           kill $!
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: binary
           path: ./dummy-server.bin
-
